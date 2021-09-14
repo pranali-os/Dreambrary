@@ -10,7 +10,7 @@ const expressLayouts = require('express-ejs-layouts')
 
 const indexRouter = require('./routes/index')
 const authorsRouter = require('./routes/authors')
-
+const bookRouter = require('./routes/books')
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
@@ -27,6 +27,11 @@ db.once('open', () => console.log('CONNECTED TO MONGOOSE!'))
 
 app.use('/', indexRouter)
 app.use('/authors', authorsRouter)
-
+app.use('/books', bookRouter )
+app.use((error, req, res, next) => {
+    const message = `This is the unexpectd field -> "${error.field}"`
+    console.log(message)
+    return res.status(500).send(message)
+})
 
 app.listen(process.env.PORT || 3000)

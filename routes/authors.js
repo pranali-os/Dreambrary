@@ -1,7 +1,8 @@
 const express = require('express')
+const router = express.Router()
 const Author = require('../models/author')
 const Book = require('../models/book')
-const router = express.Router()
+
 
 
 
@@ -60,7 +61,7 @@ router.post('/', async(req, res) => {
   
 router.get('/:id', async (req, res) => {
     try{
-        const author = await Author.findByIdAndDelete(req.params.id)
+        const author = await Author.findById(req.params.id)
         const books = await Book.find({ author: author.id }).limit(6).exec()
         res.render('authors/show', {
             author: author,
@@ -77,14 +78,14 @@ router.get('/:id/edit', async (req, res) => {
         const author = await Author.findById(req.params.id)       //using mongoose to update and modify data of specific id
         res.render('authors/edit', {author: author})
     } catch {
-        res.redirect('authors')
+        res.redirect('/authors')
     }
    //res.send('Edit Author' + req.params.id)       //test before editing
 })
 router.put('/:id', async(req, res) => {
    let author
     try{
-        author = await Author.findById(re.params.id)
+        author = await Author.findById(req.params.id)
         author.name = req.body.name                    //UPDATING AUTHOR
         await author.save()
         res.redirect(`/authors/${author.id}`)  //before then

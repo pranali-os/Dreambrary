@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== 'production'){
 const express = require('express')
 const app = express()
 const expressLayouts = require('express-ejs-layouts')
-
+const methodOverride = require('method-override')
 
 const indexRouter = require('./routes/index')
 const authorsRouter = require('./routes/authors')
@@ -16,6 +16,7 @@ app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
+app.use(methodOverride('_method'))
 app.use(express.static('public'))
 app.use(express.urlencoded({ limit: '10mb', extended: false}))
 
@@ -28,10 +29,10 @@ db.once('open', () => console.log('CONNECTED TO MONGOOSE!'))
 app.use('/', indexRouter)
 app.use('/authors', authorsRouter)
 app.use('/books', bookRouter )
-app.use((error, req, res, next) => {
-    const message = `This is the unexpectd field -> "${error.field}"`
-    console.log(message)
-    return res.status(500).send(message)
-})
+//app.use((error, req, res, next) => {
+   // const message = `This is the unexpectd field -> "${error.field}"`
+   // console.log(message)
+   // return res.status(500).send(message)
+//})
 
 app.listen(process.env.PORT || 3000)

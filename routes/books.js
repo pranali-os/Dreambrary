@@ -7,7 +7,7 @@ const imageMimeTypes = ['images/jpeg', 'images/png', 'images/gif']
 
 //ALL BOOKS ROUTE
 router.get('/', async(req, res) => {
-     let query =Book.find()
+    let query =Book.find()
     if (req.query.title != null && req.query.title != ''){
         query = query.regex('title', new RegExp(req.query.title, 'i'))
     }
@@ -51,12 +51,9 @@ router.post('/', async(req,res) => {
         const newBook = await book.save()
         res.redirect(`books/${newBook.id}`)  //(before dont uncomment)
         //res.redirect('books/`)
-
-    } catch (err){
-       console.log(err)
+    } catch {
        renderNewPage(res, book, true)
     }
-    
 }) 
 //SHOW BOOK ROUTE
 router.get('/:id', async (req, res) => {
@@ -92,13 +89,10 @@ router.put('/', async(req,res) => {
         if (req.body.cover != null && req.body.cover !== '') {
             saveCover(book, req.body.cover)
         }
-
         await book.save()                                                               //res.redirect(`books/${newBook.id}`)  (before dont uncomment)
-        res.redirect(`1/books/${book.id}`)
-
-    } catch(err) {
-        console.log(err)
-       if (book != null) {
+        res.redirect(`/books/${book.id}`)
+    } catch {
+        if (book != null) {
         renderEditPage(res, book, true)
        } else {
            redirect('/')
@@ -129,11 +123,9 @@ router.delete('/:id', async (req, res) => {
 
 async function renderNewPage(res, book, hasError = false) {
     renderFormPage(res, book, 'new', hasError)
-
 }
-async function renderEditPage(res, book, hasError= false)
-{
-    renderFormPage(req, book, 'edit', hasError)
+async function renderEditPage(res, book, hasError= false) {
+    renderFormPage(res, book, 'edit', hasError)
 }
 async function renderFormPage(res, book, form, hasError = false) {
     try {
@@ -149,23 +141,21 @@ async function renderFormPage(res, book, form, hasError = false) {
                 params.errorMessage = 'Error creating Book'
             }
         }
-       
         res.render(`books/${form}`, params)
     } catch {
       res.redirect('/books')
     }
-
 }
 
 function saveCover(book, coverEncoded) {
     if(coverEncoded == null) return
-    //const cover = JSON.parse(coverEncoded)
-    let cover
+    
+   const cover = JSON.parse(coverEncoded)
     if (cover != null && imageMimeTypes.includes(cover.type)) {
         book.coverImage = new Buffer.from(cover.data, 'base64')
         book.coverImageType = cover.type
-    }
-
+    } 
+    //res.json(saveCover)
 }
    
 

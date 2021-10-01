@@ -7,6 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
   )      
 
   FilePond.setOptions({
+    server: {
+        process: './process',
+        fetch: null,
+        revert: null
+    },
     stylePanelAspectRation: 150/100,
     imageResizeTargetWidth: 100,
     imageResizeTargetHeight: 150,

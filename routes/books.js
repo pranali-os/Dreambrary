@@ -89,7 +89,7 @@ router.put('/', async(req,res) => {
         if (req.body.cover != null && req.body.cover !== '') {
             saveCover(book, req.body.cover)
         }
-        await book.save()                                                               //res.redirect(`books/${newBook.id}`)  (before dont uncomment)
+        await book.save()                                             //res.redirect(`books/${newBook.id}`)  (before dont uncomment)
         res.redirect(`/books/${book.id}`)
     } catch {
         if (book != null) {

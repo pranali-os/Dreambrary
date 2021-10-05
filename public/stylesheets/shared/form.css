@@ -8,6 +8,7 @@
 }
 .form-item {
     display: flex;
+    gap: 0.5rem;
     flex-direction: column;
     margin-left: 2rem;
     flex-grow: 1;
@@ -31,8 +32,8 @@
     height: 2rem;
     padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
-    border: 1px solid rgb(rgb(41, 40, 46));
-    background-color: rgb(70, 69, 78);
+    border: 1px solid rgb(rgb(238, 243, 211));
+    background-color: rgb(243, 243, 239);
     color: white;
     font-size: 1rem;
     font-weight: normal;
@@ -44,18 +45,18 @@
     resize: none;
 }
 .form-item select {
-    background-color: black;
+    background-color:rgb(179, 179, 135);
 }
 .form-item input:focus, .form-item select:focus, .form-item textarea:focus {
-    border-color: black;
+    border-color: rgb(243, 243, 239);
 }
 .filepond--root {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin-bottom: 0;
 }
 .filepond--panel-root {
-    border: 1px solid rgb(rgb(41, 40, 46));
-    background-color: rgb(70, 69, 78);
+    border: 1px solid  rgb(rgb(238, 243, 211));
+    background-color: rgb(243, 243, 239);
 }
 .filepond--drop-label {
     color: white;
